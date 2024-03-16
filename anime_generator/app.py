@@ -5,7 +5,7 @@ import google.generativeai as genai
 
 
 
-genai.configure(api_key='AIzaSyBJC5sCgMzVwzrkor_cWR6-AeMNGwRubO8')
+genai.configure(api_key='AI************************************')
 
 ## Function to load OpenAI model and get respones
 
