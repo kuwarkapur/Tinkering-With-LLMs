@@ -1,17 +1,14 @@
 # AnythingSummarized
 
-This project is a Streamlit application that allows users to summarize any text content, whether it's from an uploaded file or a provided URL. The application utilizes the Ollama API to generate concise and informative summaries of the input text.
+Welcome to AnythingSummarized - your go-to application for effortlessly summarizing any text content! 🚀
+Note: This project is still in progress, and exciting new features will be added soon! Stay tuned. �upcoming
+Features
 
-**Note: This project is still in progress, and features will be updated periodically.**
-
-## Features
-
-- **File Upload**: Users can upload various file formats such as PDF, DOCX, TXT, CSV, EPUB, and MP4 to extract text for summarization.
-- **URL Input**: Alternatively, users can provide a URL for a YouTube video or an article, and the application will fetch and summarize the text content.
-- **Text Summarization**: The application leverages the Ollama API to generate a summary of the input text, focusing on the core information and actionable insights.
-- **Summarized Content Display**: The summarized content is displayed in a visually appealing card-like container, making it easy to read and understand.
-- **Responsive UI**: The Streamlit application features a responsive and user-friendly interface, with a sidebar for controlling the input source (file or URL).
-
+File Upload: Seamlessly upload a wide range of file formats, including PDF, DOCX, TXT, CSV, EPUB, and MP4, to extract text for summarization. 📂
+URL Input: Alternatively, simply provide a URL for a YouTube video or an article, and we'll handle the rest! 🌐
+Text Summarization: Harness the power of the Ollama API to generate concise and informative summaries of the input text, capturing the core information and actionable insights. 🧠
+Summarized Content Display: Enjoy a visually appealing and easy-to-read display of the summarized content, presented in a sleek, card-like container. 📰
+Responsive UI: Experience a user-friendly and responsive interface, with a handy sidebar for controlling the input source (file or URL). 📱
 ## Installation
 
 1. Clone the repository:
