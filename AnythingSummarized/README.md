@@ -1,4 +1,4 @@
-# Summarize Anything
+# AnythingSummarized
 
 This project is a Streamlit application that allows users to summarize any text content, whether it's from an uploaded file or a provided URL. The application utilizes the Ollama API to generate concise and informative summaries of the input text.
 
@@ -27,7 +27,7 @@ This project is a Streamlit application that allows users to summarize any text 
    cd requirements
    pip install -r requirements.txt
 
-Setup
+## Setup
 
 1. Run the Ollama endpoint Jupyter Notebook first.
 2. Replace the URL for the API request with the appropriate ngrok URL (e.g., https://3d34-34-87-154-37.ngrok-free.app).
@@ -38,7 +38,7 @@ Setup
    ```bash
    ollama pull <model_name>
 
-# Usage
+## Usage
 
 1. Run the Streamlit application:
    ```bash
@@ -49,7 +49,7 @@ Setup
 4. After entering the input source, the application will display the original content and the summarized version in separate columns.
 5. The summarized content will be presented in a visually appealing card-like container, making it easy to read and understand.
 
-Contributing
+## Contributing
 Contributions are welcome! If you find any issues or have suggestions for improvements, please open an issue or submit a pull request.
-License
+## License
 This project is licensed under the MIT License.
