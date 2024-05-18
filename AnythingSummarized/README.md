@@ -1,14 +1,17 @@
 # AnythingSummarized
 
 Welcome to AnythingSummarized - your go-to application for effortlessly summarizing any text content! 🚀
-Note: This project is still in progress, and exciting new features will be added soon! Stay tuned. �upcoming
-Features
 
-File Upload: Seamlessly upload a wide range of file formats, including PDF, DOCX, TXT, CSV, EPUB, and MP4, to extract text for summarization. 📂
-URL Input: Alternatively, simply provide a URL for a YouTube video or an article, and we'll handle the rest! 🌐
-Text Summarization: Harness the power of the Ollama API to generate concise and informative summaries of the input text, capturing the core information and actionable insights. 🧠
-Summarized Content Display: Enjoy a visually appealing and easy-to-read display of the summarized content, presented in a sleek, card-like container. 📰
-Responsive UI: Experience a user-friendly and responsive interface, with a handy sidebar for controlling the input source (file or URL). 📱
+Note: This project is still in progress, and exciting new features will be added soon! Stay tuned. �upcoming
+
+## Features
+
+1. File Upload: Seamlessly upload a wide range of file formats, including PDF, DOCX, TXT, CSV, EPUB, and MP4, to extract text for summarization. 📂
+2. URL Input: Alternatively, simply provide a URL for a YouTube video or an article, and we'll handle the rest! 🌐
+3. Text Summarization: Harness the power of the Ollama API to generate concise and informative summaries of the input text, capturing the core information and actionable insights. 🧠
+4. Summarized Content Display: Enjoy a visually appealing and easy-to-read display of the summarized content, presented in a sleek, card-like container. 📰
+5. Responsive UI: Experience a user-friendly and responsive interface, with a handy sidebar for controlling the input source (file or URL). 📱
+
 ## Installation
 
 1. Clone the repository:
