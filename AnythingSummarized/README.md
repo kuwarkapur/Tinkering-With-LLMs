@@ -50,6 +50,10 @@ This project is a Streamlit application that allows users to summarize any text 
 5. The summarized content will be presented in a visually appealing card-like container, making it easy to read and understand.
 
 ## Contributing
-Contributions are welcome! If you find any issues or have suggestions for improvements, please open an issue or submit a pull request.
+Contributions to this project are welcome! If you find any issues or have suggestions for improvement, feel free to open an issue or create a pull request.
+
+## Contact
+For any questions or feedback, feel free to reach out: [kuwarkapur@gmail.com](mailto:kuwarkapur@gmail.com).
+
 ## License
-This project is licensed under the MIT License.
+This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
