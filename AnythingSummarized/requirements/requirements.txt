@@ -1,0 +1,10 @@
+PyPDF2
+python-docx
+requests
+EbookLib
+numpy
+streamlit
+youtube-transcript-api
+beautifulsoup4
+newspaper3k
+whisper
