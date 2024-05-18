@@ -2,7 +2,7 @@
 
 Welcome to AnythingSummarized - your go-to application for effortlessly summarizing any text content! 🚀
 
-Note: This project is still in progress, and exciting new features will be added soon! Stay tuned. �upcoming
+Note: This project is still in progress, and exciting new features will be added soon! Stay tuned. 🔜
 
 ## Features
 
@@ -11,6 +11,13 @@ Note: This project is still in progress, and exciting new features will be added
 3. Text Summarization: Harness the power of the Ollama API to generate concise and informative summaries of the input text, capturing the core information and actionable insights. 🧠
 4. Summarized Content Display: Enjoy a visually appealing and easy-to-read display of the summarized content, presented in a sleek, card-like container. 📰
 5. Responsive UI: Experience a user-friendly and responsive interface, with a handy sidebar for controlling the input source (file or URL). 📱
+
+## Upcoming Features
+
+1. Optimized Architecture: Planned improvements to the application's architecture for enhanced performance and efficient summarization tasks. ⚡
+2. Model Selection: The ability to choose from a variety of pre-trained language models within the web application to suit your specific summarization needs. 🔢
+3. Q/A & Chat Functionality: Interactive question-answering sessions and natural language conversations with the summarized content. 💬
+4. Multi-Format Support: Summarization of content in various formats, including text, audio, and video, for increased versatility. 📚📽️🎧
 
 ## Installation
 
