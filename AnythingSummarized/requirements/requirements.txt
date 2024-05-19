@@ -8,3 +8,4 @@ youtube-transcript-api
 beautifulsoup4
 newspaper3k
 whisper
+reportlab
