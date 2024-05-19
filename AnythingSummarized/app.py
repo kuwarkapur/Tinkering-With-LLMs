@@ -1,56 +1,82 @@
 import streamlit as st
 import requests
-from src.utils import display_link_preview,display_file_preview,extract_text
+from reportlab.lib.pagesizes import letter
+from reportlab.pdfgen import canvas
+from reportlab.lib import colors
+from reportlab.lib.styles import getSampleStyleSheet
+from reportlab.platypus import SimpleDocTemplate, Paragraph, Spacer
+from io import BytesIO
+from src.utils import display_link_preview, display_file_preview, extract_text
+from prompts import PROMPTS
+
+# Function to summarize text
+@st.cache_data
+def summarize_text(corpus, prompt_type="pdf_document", max_words=300):
+    prompt = PROMPTS[prompt_type].format(max_words=max_words)  # Format the prompt with max_words
+
+    OLLAMA_ENDPOINT = "https://46ee-34-143-158-22.ngrok-free.app/api/generate"
+
+    OLLAMA_PROMPT = f"{prompt}\n\n{corpus}"
+    OLLAMA_DATA = {
+        "model": "llama3",
+        "prompt": OLLAMA_PROMPT,
+        "stream": False
+    }
+
+    response = requests.post(OLLAMA_ENDPOINT, json=OLLAMA_DATA)
+    return response.json()['response']
 
 
-def summarize_text(corpus):
-    
+# Function to create a PDF from text content
+def create_pdf(summary_text):
+    pdf_buffer = BytesIO()
+    doc = SimpleDocTemplate(pdf_buffer, pagesize=letter)
+    styles = getSampleStyleSheet()
+    story = []
 
-     prompt = """Objective: Summarize the provided text in about 300 words, focusing on the core information and actionable insights.
-            use bullets or headings wherever needed,
-            Instructions:
+    # Title
+    title = Paragraph("Summary Report", styles['Title'])
+    story.append(title)
+    story.append(Spacer(1, 12))
 
-            Key Points Identification:
-            List the main themes and important messages.
-            Summary Creation:
-            Construct a summary under appropriate headings reflecting the text's structure.
-            Action Items:
-            Clearly list any recommendations or steps to be taken as highlighted in the text.
-            Editing:
-            Ensure the summary is clear and concise, within the specified word count.
-            Format:
+    # Summary Content
+    for line in summary_text.split('\n'):
+        paragraph = Paragraph(line, styles['BodyText'])
+        story.append(paragraph)
+        story.append(Spacer(1, 12))
 
-            Use headings to organize the summary into sections.
-            Keep each section focused and succinct."""
-
-     OLLAMA_ENDPOINT = "https://3d34-34-87-154-37.ngrok-free.app/api/generate"
-
-     OLLAMA_PROMPT = f"{prompt}: {corpus}"
-     OLLAMA_DATA = {
-          "model": "llama3",
-          "prompt": OLLAMA_PROMPT,
-          "stream": False
-     }
-
-     response = requests.post(OLLAMA_ENDPOINT, json=OLLAMA_DATA)
-     return response.json()['response']
+    doc.build(story)
+    pdf_buffer.seek(0)
+    return pdf_buffer
 
 # Main function for the Streamlit app
 def main():
-    st.set_page_config(layout="wide", page_title="summarise anything")
-    st.title("summarise anything")
+    st.set_page_config(layout="wide", page_title="Summarize Anything")
+    st.title("Summarize Anything")
+
     with st.sidebar:
         st.header("Controls")
         uploaded_file = st.file_uploader("Upload your file", type=["pdf", "docx", "txt", "csv", "epub", "mp4"])
         link = st.text_input("Or enter a URL for a YouTube video or article")
-        
-    if st.session_state.get("file_uploader") and st.session_state.get("link_input"):
-        # If both inputs are filled, clear the one not currently being modified
-        if st.session_state.last_active_input == 'file_uploader':
-            st.session_state.link_input = ""
-        else:
-            st.session_state.file_uploader = None
+        max_length = st.slider("Maximum summary length", 50, 500, 300)
+        # Clear cache button
+        if st.button("🔃 Refresh"):
+            st.cache_data.clear()
+            
+        # In the main function inside the sidebar
+        content_type = st.selectbox("Choose Content Type", options=list(PROMPTS.keys()))  # Select prompt type
 
+    
+    # Maintain state for the last active input
+    if "last_active_input" not in st.session_state:
+        st.session_state.last_active_input = None
+
+    if uploaded_file:
+        st.session_state.last_active_input = 'file_uploader'
+        link = ""
+    elif link:
+        st.session_state.last_active_input = 'link_input'
+        uploaded_file = None
 
     col1, col2 = st.columns([3, 2])
 
@@ -66,13 +92,27 @@ def main():
             text = ""
 
     with col2:
-        
-        summarized_text = summarize_text(text)
-    
-        st.subheader("Summarized Content")
-        # Example of displaying a card-like container for summaries
-        st.container().markdown(
-            summarized_text, unsafe_allow_html=True)
+        if text:
+            summarized_text = summarize_text(text,content_type,max_length)
+            st.subheader("Summarized Content")
+
+            # Display the summary in a scrollable container
+            st.markdown(
+                f"""
+                <div style='height: 400px; overflow-y: auto; padding: 10px; border: 1px solid #ddd; border-radius: 5px; background-color: #260A1D;'>
+                    <h3>Summary</h3>
+                    <p>{summarized_text}</p>
+                </div>
+                """,
+                unsafe_allow_html=True
+            )
+
+            # Option to download the summary as a PDF
+            pdf_buffer = create_pdf(summarized_text)
+            st.download_button(label="Download Summary as PDF",
+                               data=pdf_buffer,
+                               file_name="summary.pdf",
+                               mime="application/pdf")
 
     st.markdown("""
         <style>
@@ -84,7 +124,6 @@ def main():
         }
         </style>
         """, unsafe_allow_html=True)
-
 
 if __name__ == "__main__":
     main()
