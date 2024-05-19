@@ -3,9 +3,10 @@ import docx
 import requests
 from ebooklib import epub
 import numpy as np
-from os import environ as osenv
+from os import environ as osenv, path
 from docx import Document
 from glob import glob
+from io import BytesIO
 import re
 import streamlit as st
 from youtube_transcript_api import YouTubeTranscriptApi
@@ -73,11 +74,32 @@ def extract_text(input_data):
         video_id = extract_youtube_video_id(input_data)
         transcript = YouTubeTranscriptApi.get_transcript(video_id, languages=['en'])
         return ' '.join([t['text'] for t in transcript])
+        
     elif isinstance(input_data, str) and input_data.startswith('http'):
-        article = Article(input_data)
-        article.download()
-        article.parse()
-        return article.text
+        if "arxiv.org" in input_data:
+            # Handle arXiv PDF extraction
+            try:
+                arxiv_id = input_data.split('/')[-1]
+                pdf_url = f"https://arxiv.org/pdf/{arxiv_id}.pdf"
+                response = requests.get(pdf_url)
+                if response.status_code == 200:
+                    pdf_reader = PdfReader(BytesIO(response.content))
+                    text = ""
+                    for page in pdf_reader.pages:
+                        text += page.extract_text() + "\n"
+                    print(text)
+                    return text
+                else:
+                    raise ValueError("Failed to download the PDF")
+            except Exception as e:
+                return f"Error extracting text from arXiv PDF: {str(e)}"
+        else:
+            article = Article(input_data)
+            article.download()
+            article.parse()
+            return article.text
+    
+        
     else:
         # # Handle UploadedFile object directly
         file_extension = input_data.name.split('.')[-1].lower()
